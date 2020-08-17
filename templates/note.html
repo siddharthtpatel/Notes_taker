@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes</title>
+</head>
+<body>
+    <style>
+        body {
+            text-align: left;
+            background-color:white;
+        }
+        hr {
+            color: #141618;
+        }
+        .navbar {
+            display: grid;
+            padding: 2px;
+        }
+        .header{
+            grid-column: 1 / 12;
+        }
+        .newBut{
+            grid-column: 12 / 12;
+            margin-top: 2%;
+        }
+        .note{
+            background-color: rgb(255, 255, 117);
+            box-shadow: 1px 1px gray;
+            padding: 20px;
+            height: 300px;
+        }
+        .notes{
+            display: grid;
+            grid-template-columns: repeat(4, 300px);
+            grid-gap: 1.5rem;
+            width: fit-content;
+            margin: 6%;
+            margin-top: 0px;
+        }
+        #new_note{
+            display: none;
+            width: 35%;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 1px 1px 1000px 1000px rgba(128, 128, 128, 0.678);
+            position:fixed;
+            top: 10%;
+            right: 35%;
+        }
+    </style>
+    <div class="navbar">
+          <div class="header">
+            <h1 style=" margin: 0px; margin-left: 30px; font-family: Arial, Helvetica, sans-serif;">
+                NOTES
+            </h1>
+          </div>
+          <div class="newBut">
+            <button  style="font-size: 20px;"type="submit" onclick="openForm()">
+                ADD NEW NOTE
+            </button>
+          </div>
+    </div>
+    <hr>
+    <div class="notes">
+        {% for note in notes %}
+        <div class="note">
+            <h2  style=" margin: 0px; font-size: 25px;">{{ note[0] }}</h2>
+            <hr align="left" width="250" style="background-color: black;">
+                <p>{{ note[1] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    
+    <div id="new_note">
+        <div class="modal-body">
+            <button style="margin:4px; margin-left:94%;" data-dismiss="modal" onclick="closeForm()">&times;</button>
+            <h1 style="text-align: center; margin-top: 0px;">New Note</h1>
+            <form action="{{ url_for('note') }}" method="post">
+                <input type="text" name="header" style="width: 95%; height:30px; margin: 7px;" placeholder="Heading"/><br>
+                <input id="body" name="body" placeholder="Body" style="width: 95%; height:100px; margin: 7px;"></input> <br>
+                <button data-dismiss="modal" style="margin: 5px; margin-left:43%; margin-bottom: 10px;">Add Note</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function openForm() {
+          document.getElementById("new_note").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("new_note").style.display = "none";
+        }
+    </script>
+
+
+</body>
+
+</html>
